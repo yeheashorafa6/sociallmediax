@@ -6,10 +6,23 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens : {
+      xs : "500px",
+      sm : "600px" ,
+      md: "690px",
+      lg: "988px",
+      xl: "1078px",
+      xxl: "1265px"
+    },
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        textGray: "#71767b",
+        textGrayLight: "#c7c9ca",
+        borderGray: "#2f3336",
+        inputGray: "#202327",
+        iconBlue: "#1d9bf0",
+        iconGreen: "#00ba7c",
+        iconPink: "#f91880",
       },
     },
   },
