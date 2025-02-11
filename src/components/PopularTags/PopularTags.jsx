@@ -1,7 +1,15 @@
 import React from "react";
 import Image from "../Image/Image";
+import Link from "next/link";
 
 function PopularTags() {
+  const topics = [
+    { category: "Technology - Trending", name: "OpenAI", posts: "2K posts" },
+    { category: "Science - Popular", name: "SpaceX", posts: "5K posts" },
+    { category: "AI - Latest", name: "ChatGPT", posts: "3.2K posts" },
+    { category: "Coding - Hot", name: "Next.js", posts: "1.8K posts" },
+  ];
+
   return (
     <div className="p-4 rounded-2xl border-[1px] border-borderGray flex flex-col gap-4">
       <h1>{"What’s Happening"}</h1>
@@ -26,41 +34,20 @@ function PopularTags() {
         </div>
       </div>
       {/* TOPICS */}
-      <div className="">
-        <div className="flex items-center justify-between">
-          <span className="text-textGray text-sm">Technology - Trending</span>
-          <Image path="icons/infoHore.svg" alt="info" w={16} h={16} />
-        </div>
-        <h2 className="text-textGrayLight font-bold">OpenAI</h2>
-        <span className="text-textGray text-sm">2eK posts</span>
+      <div className="flex flex-col gap-3">
+        {topics.map((topic, index) => (
+          <div key={index} className="">
+            <div className="flex items-center justify-between">
+              <span className="text-textGray text-sm">{topic.category}</span>
+              <Image src="icons/infoMore.svg" alt="info" width={16} height={16} className={"cursor-pointer"}/>
+            </div>
+            <h2 className="text-textGrayLight font-bold">{topic.name}</h2>
+            <span className="text-textGray text-sm">{topic.posts}</span>
+          </div>
+        ))}
       </div>
-       {/* TOPICS */}
-       <div className="">
-        <div className="flex items-center justify-between">
-          <span className="text-textGray text-sm">Technology - Trending</span>
-          <Image path="icons/infoHore.svg" alt="info" w={16} h={16} />
-        </div>
-        <h2 className="text-textGrayLight font-bold">OpenAI</h2>
-        <span className="text-textGray text-sm">2eK posts</span>
-      </div>
-       {/* TOPICS */}
-       <div className="">
-        <div className="flex items-center justify-between">
-          <span className="text-textGray text-sm">Technology - Trending</span>
-          <Image path="icons/infoHore.svg" alt="info" w={16} h={16} />
-        </div>
-        <h2 className="text-textGrayLight font-bold">OpenAI</h2>
-        <span className="text-textGray text-sm">2eK posts</span>
-      </div>
-       {/* TOPICS */}
-       <div className="">
-        <div className="flex items-center justify-between">
-          <span className="text-textGray text-sm">Technology - Trending</span>
-          <Image path="icons/infoHore.svg" alt="info" w={16} h={16} />
-        </div>
-        <h2 className="text-textGrayLight font-bold">OpenAI</h2>
-        <span className="text-textGray text-sm">2eK posts</span>
-      </div>
+      <Link href={"/"} className='text-iconBlue '>Show More</Link>
+
     </div>
   );
 }

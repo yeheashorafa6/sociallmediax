@@ -6,7 +6,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <div className="max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto flex justify-between">
+        <div className="max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl xxl:max-w-screen-xxl mx-auto flex justify-between">
           <div className="px-2 xs:px-4 xxl:px-8  ">
             <LeftBar/>
           </div>
@@ -17,5 +17,6 @@ export default function RootLayout({ children }) {
         </div>
       </body>
     </html>
+
   );
 }

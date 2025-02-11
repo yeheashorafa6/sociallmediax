@@ -66,7 +66,7 @@ const menuList = [
 ];
 function LeftBar() {
   return (
-    <div className='flex justify-between pt-2 pb-7 h-screen flex-col'>
+    <div className='sticky top-0 flex justify-between pt-2 pb-7 h-screen flex-col'>
       {/* MENU LOGO BUTTON */}
       <div className='flex flex-col gap-3 text-lg items-center xl:text-start'>
         {/* LOGO */}
