@@ -1,6 +1,6 @@
 import "./globals.css";
 import LeftBar from "@/components/LeftBar/LeftBar";
-import RightBar from "@/components/RightBar/rightBar";
+import RightBar from "@/components/RightBar/RightBar";
 
 export default function RootLayout({ children }) {
   return (
