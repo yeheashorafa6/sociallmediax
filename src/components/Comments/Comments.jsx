@@ -14,9 +14,9 @@ const Comments = () => {
       <Post/>
       <Post/>
       <Post/>
+      {/* <Post/>
       <Post/>
-      <Post/>
-      <Post/>
+      <Post/> */}
     </div>
   )
 }

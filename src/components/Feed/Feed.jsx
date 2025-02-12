@@ -6,8 +6,8 @@ function Feed() {
     <div>
       <Post/>
       <Post/>
-      <Post/>
-      <Post/>
+      {/* <Post/>
+      <Post/> */}
     </div>
   )
 }
