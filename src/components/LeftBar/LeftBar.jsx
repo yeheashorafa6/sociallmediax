@@ -89,21 +89,20 @@ function LeftBar() {
             </Link>
           ))}
         </div>
-        {/* BUTTON */}
-        <Link
-          href={"/"}
-          className="xl:hidden h-12 w-12 flex items-center justify-center bg-white rounded-full"
+       {/* BUTTON */}
+       <Link
+          href={{
+            pathname: '/compose/post'
+          }}
+          className="bg-white text-black rounded-full w-12 h-12 flex items-center justify-center xxl:hidden"
         >
-          <Image
-            src={`icons/post.svg`}
-            width={25}
-            height={25}
-            alt={"new post"}
-          />
+          <Image src="icons/post.svg" alt="new post" width={24} height={24} />
         </Link>
         <Link
-          href={"/"}
-          className="hidden xl:block bg-white text-black rounded-full py-2 px-20 font-bold"
+          href={{
+            pathname: '/compose/post'
+          }}
+          className="hidden xxl:block bg-white text-black rounded-full font-bold py-2 px-20"
         >
           Post
         </Link>
