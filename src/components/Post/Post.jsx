@@ -97,6 +97,7 @@ const Post = async ({ type }) => {
               iure nam voluptas soluta pariatur inventore.
             </p>
           </Link>
+          {type === "status" && <span className="text-textGray">8:41 PM . Dec 5, 2024</span>}
           <Image src="general/post.jpeg" alt="post" width={600} height={600} />
           {/* AFTER FETCHING THE POST MEDIA */}
           {/* {fileDetails && fileDetails.fileType === "image" ? (
