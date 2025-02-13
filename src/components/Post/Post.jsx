@@ -5,9 +5,7 @@ import PostInteractions from "../PostInteractions/PostInteractions";
 import Video from "../Video/Video";
 import Link from "next/link";
 
-
 const Post = async ({ type }) => {
- 
   // FETCH POST MEDIA
 
   // const getFileDetails = async (
@@ -50,7 +48,13 @@ const Post = async ({ type }) => {
             type === "status" && "hidden"
           } relative w-10 h-10 rounded-full overflow-hidden`}
         >
-          <Image src="general/user-avatar.png" alt="" width={100} height={100} tr={true} />
+          <Image
+            src="general/user-avatar.png"
+            alt=""
+            width={100}
+            height={100}
+            tr={true}
+          />
         </div>
         {/* CONTENT */}
         <div className="flex-1 flex flex-col gap-2">
@@ -97,7 +101,6 @@ const Post = async ({ type }) => {
               iure nam voluptas soluta pariatur inventore.
             </p>
           </Link>
-          {type === "status" && <span className="text-textGray">8:41 PM . Dec 5, 2024</span>}
           <Image src="general/post.jpeg" alt="post" width={600} height={600} />
           {/* AFTER FETCHING THE POST MEDIA */}
           {/* {fileDetails && fileDetails.fileType === "image" ? (
