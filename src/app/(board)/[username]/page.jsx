@@ -25,7 +25,7 @@ const UserPage = async ({
   if (!user) return notFound();
 
   return (
-    <div className="">
+    <div className="-z-20">
       {/* PROFILE TITLE */}
       <div className="flex items-center gap-8 sticky top-0 backdrop-blur-md p-4 z-10 bg-[#00000084]">
         <Link href="/">
@@ -38,9 +38,9 @@ const UserPage = async ({
         {/* COVER & AVATAR CONTAINER */}
         <div className="relative w-full">
           {/* COVER */}
-          <div className="w-full aspect-[3/1] relative">
+          <div className="w-full aspect-[3/1] relative -z-20">
             <Image
-              path={user.cover || "general/noCover.png"}
+              path={user.cover || "general/cover.jpg"}
               alt=""
               w={600}
               h={200}
@@ -48,7 +48,7 @@ const UserPage = async ({
             />
           </div>
           {/* AVATAR */}
-          <div className="w-1/5 aspect-square rounded-full overflow-hidden border-4 border-black bg-gray-300 absolute left-4 -translate-y-1/2">
+          <div className="-z-20 w-1/5 aspect-square rounded-full overflow-hidden border-4 border-black bg-gray-300 absolute left-4 -translate-y-1/2">
             <Image
               path={user.img || "general/no_avatar.png"}
               alt=""

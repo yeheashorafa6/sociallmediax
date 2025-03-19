@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
 export async function GET(request) {
   const searchParams = request.nextUrl.searchParams;
@@ -10,8 +11,10 @@ export async function GET(request) {
 
   const { userId } = await auth();
 
-  if (!userId) return;
-
+  if (!user) {
+    // إذا كان المستخدم غير موجود
+    return NextResponse.json({ error: 'User is required' }, { status: 400 });
+  }
   const whereCondition =
     userProfileId !== "undefined"
       ? { parentPostId: null, userId: userProfileId  }
