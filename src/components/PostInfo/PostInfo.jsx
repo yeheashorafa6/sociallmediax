@@ -1,12 +1,11 @@
-import React from 'react'
-import Image from '../Image/Image'
+import Image from "../Image/Image";
 
-function PostInfo() {
+const PostInfo = () => {
   return (
-    <div className='relative h-4 w-4 cursor-pointer'>
-        <Image src={"icons/infoMore.svg"} width={25} height={25} tr={true} alt={"more information"}/>
+    <div className="cursor-pointer w-4 h-4 relative">
+      <Image path="icons/infoMore.svg" alt="" w={16} h={16} />
     </div>
-  )
-}
+  );
+};
 
-export default PostInfo
+export default PostInfo;

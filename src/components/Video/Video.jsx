@@ -1,18 +1,23 @@
-"use client"
-import React from 'react'
-import { IKVideo, ImageKitProvider } from "imagekitio-next";
+"use client";
+import { IKVideo } from "imagekitio-next";
 
-function Video({path , className}) {
+const urlEndpoint = process.env.NEXT_PUBLIC_URL_ENDPOINT;
+
+
+
+const Video = ({ path, className }) => {
   return (
-    <ImageKitProvider urlEndpoint={process.env.NEXT_PUBLIC_URL_ENDPOINT}>
     <IKVideo
+      urlEndpoint={urlEndpoint}
       path={path}
-      transformation={[{ height: "1080", width: "1920" , q : "90" } ]}
-      controls={true}
       className={className}
+      transformation={[
+        { width: "1920", height: "1080", q: "90" },
+        { raw: "l-text,i-LamaDev,fs-100,co-white,l-end" },
+      ]}
+      controls
     />
-  </ImageKitProvider>
-  )
-}
+  );
+};
 
-export default Video
+export default Video;

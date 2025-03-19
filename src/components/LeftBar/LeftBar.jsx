@@ -1,6 +1,9 @@
 import Link from "next/link";
-import React from "react";
 import Image from "../Image/Image";
+import Socket from "../Socket/Socket";
+import Notification from "../Notification/Notification";
+import { currentUser } from "@clerk/nextjs/server";
+import Logout from "../Logout/Logout";
 
 const menuList = [
   {
@@ -15,12 +18,12 @@ const menuList = [
     link: "/",
     icon: "explore.svg",
   },
-  {
-    id: 3,
-    name: "Notification",
-    link: "/",
-    icon: "notification.svg",
-  },
+  // {
+  //   id: 3,
+  //   name: "Notification",
+  //   link: "/",
+  //   icon: "notification.svg",
+  // },
   {
     id: 4,
     name: "Messages",
@@ -54,7 +57,7 @@ const menuList = [
   {
     id: 9,
     name: "Profile",
-    link: "/test",
+    link: "/",
     icon: "profile.svg",
   },
   {
@@ -64,70 +67,84 @@ const menuList = [
     icon: "more.svg",
   },
 ];
-function LeftBar() {
+
+const LeftBar = async () => {
+  const user = await currentUser();
+
   return (
-    <div className="sticky top-0 flex justify-between pt-2 pb-7 h-screen flex-col">
-      {/* MENU LOGO BUTTON */}
-      <div className="flex flex-col gap-3 text-lg items-center xl:text-start">
+    <div className="h-screen sticky top-0 flex flex-col justify-between pt-2 pb-8">
+      {/* LOGO MENU BUTTON */}
+      <div className="flex flex-col gap-2 text-lg items-center xxl:items-start">
         {/* LOGO */}
-        <Link href="/" className="p-2 rounded-full hover:bg-[#181818]">
-          <Image src="icons/logo.svg" alt="logo" width={24} height={24} />
+        <Link href="/" className="p-2 rounded-full hover:bg-[#181818] ">
+          <Image path="icons/logo.svg" alt="logo" w={24} h={24} />
         </Link>
         {/* MENU LIST */}
-        <div className="flex flex-col gap-2">
-          {menuList.map((item) => (
-            <Link href={item.link} key={item.id}>
-              <div className="flex items-center gap-3 p-2 rounded-full hover:bg-[#181818]">
+        <div className="flex flex-col gap-1">
+          {menuList.map((item, i) => (
+            <div key={item.id || i}>
+              {i === 2 && user && (
+                <div>
+                  <Notification />
+                </div>
+              )}
+              <Link
+                href={item.link}
+                className="p-2 rounded-full hover:bg-[#181818] flex items-center gap-2"
+              >
                 <Image
-                  src={`icons/${item.icon}`}
-                  width={24}
-                  height={24}
+                  path={`icons/${item.icon}`}
                   alt={item.name}
+                  w={24}
+                  h={24}
                 />
-                <span className="ml-3 hidden xl:inline">{item.name}</span>
-              </div>
-            </Link>
+                <span className="hidden xxl:inline">{item.name}</span>
+              </Link>
+            </div>
           ))}
         </div>
-       {/* BUTTON */}
-       <Link
-          href={{
-            pathname: '/compose/post'
-          }}
+        {/* BUTTON */}
+        <Link
+          href="/compose/post"
           className="bg-white text-black rounded-full w-12 h-12 flex items-center justify-center xxl:hidden"
         >
-          <Image src="icons/post.svg" alt="new post" width={24} height={24} />
+          <Image path="icons/post.svg" alt="new post" w={24} h={24} />
         </Link>
         <Link
-          href={{
-            pathname: '/compose/post'
-          }}
+          href="/compose/post"
           className="hidden xxl:block bg-white text-black rounded-full font-bold py-2 px-20"
         >
           Post
         </Link>
       </div>
-      {/* USER AVATAR */}
-      <div className="flex justify-between items-center my-5">
-        <div className="flex items-center gap-2">
-          <div className="h-10 w-10 relative rounded-full overflow-hidden bg-black shadow-2xl">
-            <Image
-              src={"general/user-avatar.png"}
-              width={100}
-              height={100}
-              tr={true}
-              alt={"user avatar"}
-            />
+      {user && (
+        <>
+          <Socket />
+          {/* USER */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 relative rounded-full overflow-hidden">
+                <Image
+                  src={user?.imageUrl}
+                  alt=""
+                  w={100}
+                  h={100}
+                  tr={true}
+                />
+              </div>
+              <div className="hidden xxl:flex flex-col">
+                <span className="font-bold">{user?.username}</span>
+                <span className="text-sm text-textGray">@{user?.username}</span>
+              </div>
+            </div>
+            {/* <div className="hidden xxl:block cursor-pointer font-bold">...</div> */}
+            {/* ADD LOGOUT */}
+            <Logout/>
           </div>
-          <div className="hidden xl:flex flex-col">
-            <span className="text-sm font-bold">Yeh_Sh</span>
-            <span className="text-xs text-textGray">@yeheashorafa</span>
-          </div>
-        </div>
-        <div className="hidden xl:block font-bold cursor-pointer">...</div>
-      </div>
+        </>
+      )}
     </div>
   );
-}
+};
 
 export default LeftBar;
