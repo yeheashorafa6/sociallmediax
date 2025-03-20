@@ -173,7 +173,7 @@ export const addPost = async (
         },
         function (error, result) {
           if (error) reject(error);
-          else resolve(result );
+          else resolve(result);
         }
       );
     });

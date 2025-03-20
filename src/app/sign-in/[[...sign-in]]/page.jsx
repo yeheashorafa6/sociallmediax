@@ -24,7 +24,7 @@ const SignInPage = () => {
         <h1 className="text-2xl xsm:text-4xl md:text-6xl font-bold">
           Happening now
         </h1>
-        <h1 className="text-2xl ">Join today.</h1>
+        <h1 className="text-2xl">Join today.</h1>
         <SignIn.Root>
           <Clerk.Connection
             name="google"

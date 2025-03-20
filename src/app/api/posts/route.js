@@ -11,7 +11,7 @@ export async function GET(request) {
 
   const { userId } = await auth();
 
-  if (!user) {
+  if (!userId) {
     // إذا كان المستخدم غير موجود
     return NextResponse.json({ error: 'User is required' }, { status: 400 });
   }
