@@ -62,7 +62,7 @@ export async function POST(req) {
           username: JSON.parse(body).data.username,
           email: JSON.parse(body).data.email_addresses[0].email_address,
           img: JSON.parse(body).image_url || "",
-          displayName: displayNam,
+          displayName: JSON.parse(body).data.username,
         },
       });
       return new Response("User created", { status: 200 });
