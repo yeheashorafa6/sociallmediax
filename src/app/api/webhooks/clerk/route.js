@@ -62,7 +62,9 @@ export async function POST(req) {
           username: JSON.parse(body).data.username,
           email: JSON.parse(body).data.email_addresses[0].email_address,
           img: JSON.parse(body).image_url || "",
-          displayName: JSON.parse(body).data.username,
+          displayName: parsedData.first_name && parsedData.last_name 
+          ? `${parsedData.first_name} ${parsedData.last_name}`
+          : parsedData.username,
         },
       });
       return new Response("User created", { status: 200 });
@@ -76,11 +78,22 @@ export async function POST(req) {
 
   if (eventType === "user.deleted") {
     try {
-      await prisma.user.delete({ where: { id: evt.data.id } });
-      return new Response("User deleted", { status: 200 });
+      // التحقق من وجود المستخدم قبل محاولة حذفه
+      const userExists = await prisma.user.findUnique({
+        where: { id: evt.data.id }
+      });
+      
+      if (userExists) {
+        await prisma.user.delete({ where: { id: evt.data.id } });
+        console.log(`User ${evt.data.id} deleted successfully`);
+      } else {
+        console.log(`User ${evt.data.id} not found, skipping delete operation`);
+      }
+      
+      return new Response("User deletion processed", { status: 200 });
     } catch (err) {
       console.log(err);
-      return new Response("Error: Failed to create a user!", {
+      return new Response("Error: Failed to process user deletion!", {
         status: 500,
       });
     }
