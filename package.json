@@ -23,7 +23,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
-    "svix": "^1.61.3",
+    "svix": "^1.62.0",
     "timeago.js": "^4.0.0-beta.3",
     "uuid": "^11.1.0",
     "zod": "^3.24.2"

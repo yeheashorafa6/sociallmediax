@@ -39,7 +39,7 @@ export async function POST(req) {
       "svix-id": svix_id,
       "svix-timestamp": svix_timestamp,
       "svix-signature": svix_signature,
-    }) ;
+    });
   } catch (err) {
     console.error("Error: Could not verify webhook:", err);
     return new Response("Error: Verification error", {
@@ -61,7 +61,8 @@ export async function POST(req) {
           id: evt.data.id,
           username: JSON.parse(body).data.username,
           email: JSON.parse(body).data.email_addresses[0].email_address,
-          img: JSON.parse(body).image_url || "" 
+          img: JSON.parse(body).image_url || "",
+          displayName: displayNam,
         },
       });
       return new Response("User created", { status: 200 });
