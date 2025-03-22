@@ -3,6 +3,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Post from "../Post/Post";
+import Image from "../Image/Image";
 
 const fetchPosts = async (pageParam, userProfileId) => {
   const res = await fetch(
@@ -35,11 +36,21 @@ const InfiniteFeed = ({ userProfileId }) => {
       dataLength={allPosts.length}
       next={fetchNextPage}
       hasMore={!!hasNextPage}
-      loader={<h1>Posts are loading...</h1>}
-      endMessage={<h1>All posts loaded!</h1>}
+      loader={
+        <div className="flex justify-center items-center gap-4">
+          <Image path={"gif/1.gif"} w={20} h={20} alt={"loading"} />
+          <h2>Loading Post ... </h2>
+        </div>
+      }
+      endMessage={
+        <div className="flex justify-center items-center gap-4">
+          <Image path={"gif/finsh.gif"} w={20} h={20} alt={"finsh"} />
+          <h2>Loaded All Post !!</h2>
+        </div>
+      }
     >
       {allPosts.map((post) => (
-        <Post key={post.id} post={post}/>
+        <Post key={post.id} post={post} />
       ))}
     </InfiniteScroll>
   );

@@ -54,5 +54,50 @@ export async function POST(req) {
   console.log(`Received webhook with ID ${id} and event type of ${eventType}`);
   console.log("Webhook payload:", body);
 
+  // if (eventType === "user.created") {
+  //   try {
+  //     await prisma.user.create({
+  //       data: {
+  //         id: evt.data.id,
+  //         username: JSON.parse(body).data.username,
+  //         email: JSON.parse(body).data.email_addresses[0].email_address,
+  //         img: JSON.parse(body).image_url || "",
+  //         displayName: JSON.parse(body).data.first_name && JSON.parse(body).data.last_name 
+  //         ? `${JSON.parse(body).data.first_name} ${JSON.parse(body).data.last_name}`
+  //         : JSON.parse(body).data.username,
+  //       },
+  //     });
+  //     return new Response("User created", { status: 200 });
+  //   } catch (err) {
+  //     console.log(err);
+  //     return new Response("Error: Failed to create a user!", {
+  //       status: 500,
+  //     });
+  //   }
+  // }
+
+  // if (eventType === "user.deleted") {
+  //   try {
+  //     // التحقق من وجود المستخدم قبل محاولة حذفه
+  //     const userExists = await prisma.user.findUnique({
+  //       where: { id: evt.data.id }
+  //     });
+      
+  //     if (userExists) {
+  //       await prisma.user.delete({ where: { id: evt.data.id } });
+  //       console.log(`User ${evt.data.id} deleted successfully`);
+  //     } else {
+  //       console.log(`User ${evt.data.id} not found, skipping delete operation`);
+  //     }
+      
+  //     return new Response("User deletion processed", { status: 200 });
+  //   } catch (err) {
+  //     console.log(err);
+  //     return new Response("Error: Failed to process user deletion!", {
+  //       status: 500,
+  //     });
+  //   }
+  // }
+
   return new Response("Webhook received", { status: 200 });
 }
