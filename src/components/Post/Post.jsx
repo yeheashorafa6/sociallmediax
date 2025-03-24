@@ -11,6 +11,10 @@ const Post = ({
   type,
   post,
 }) => {
+  if (!post) {
+    console.error("Post is undefined or null");
+    return null; // أو قم بمعالجة الحالة بالطريقة المناسبة
+  }
   const originalPost = post.rePost || post;
 
   return (

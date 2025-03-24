@@ -24,12 +24,24 @@ const InfiniteFeed = ({ userProfileId }) => {
       lastPage.hasMore ? pages.length + 2 : undefined,
   });
 
+  if (!data) {
+    return <div>Loaded All Post</div>;
+  }
+
   if (error) return "Something went wrong!";
   if (status === "pending") return "Loading...";
 
-  console.log(data);
+  console.log("data : ", data);
 
   const allPosts = data?.pages?.flatMap((page) => page.posts) || [];
+
+  console.log("allPosts : ", allPosts);
+
+  // if (!data) {
+  //   return(
+  //     <div>Loaded All Post</div>
+  //   )
+  // }
 
   return (
     <InfiniteScroll
@@ -43,15 +55,19 @@ const InfiniteFeed = ({ userProfileId }) => {
         </div>
       }
       endMessage={
-        <div className="flex justify-center items-center gap-4">
-          <Image path={"gif/finsh.gif"} w={20} h={20} alt={"finsh"} />
+        <div className="flex justify-center items-center gap-4 ">
+          <Image path={"gif/finsh.gif"} w={40} h={40} alt={"finsh"} />
           <h2>Loaded All Post !!</h2>
         </div>
       }
     >
-      {allPosts.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
+      {allPosts.map((post) => {
+        if (!post || !post.id) {
+          console.log("Post or post.id is undefined", post);
+          return null;
+        }
+        return <Post key={post.id} post={post} />;
+      })}
     </InfiniteScroll>
   );
 };
