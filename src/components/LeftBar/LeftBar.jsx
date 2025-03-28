@@ -1,91 +1,82 @@
+"use client";
 import Link from "next/link";
-import Image from "../Image/Image";
-import Socket from "../Socket/Socket";
 import Notification from "../Notification/Notification";
-import { currentUser } from "@clerk/nextjs/server";
+import Socket from "../Socket/Socket";
+import Image from "../Image/Image";
 import Logout from "../Logout/Logout";
 
-const menuList = [
-  {
-    id: 1,
-    name: "Homepage",
-    link: "/",
-    icon: "home.svg",
-  },
-  {
-    id: 2,
-    name: "Explore",
-    link: "/",
-    icon: "explore.svg",
-  },
-  {
-    id: 4,
-    name: "Messages",
-    link: "/",
-    icon: "message.svg",
-  },
-  {
-    id: 5,
-    name: "Bookmarks",
-    link: "/",
-    icon: "bookmark.svg",
-  },
-  {
-    id: 6,
-    name: "Jobs",
-    link: "/",
-    icon: "job.svg",
-  },
-  {
-    id: 7,
-    name: "Communities",
-    link: "/",
-    icon: "community.svg",
-  },
-  {
-    id: 8,
-    name: "Premium",
-    link: "/",
-    icon: "logo.svg",
-  },
-  {
-    id: 9,
-    name: "Profile",
-    link: "/profile", // إذا كنت تريد رابطًا ديناميكيًا بناءً على user.username
-    icon: "profile.svg",
-  },
-  {
-    id: 10,
-    name: "More",
-    link: "/",
-    icon: "more.svg",
-  },
-];
-
-const LeftBar = async () => {
-  const user = await currentUser();
-
-  // استخراج البيانات الأساسية فقط
-  const simplifiedUser = user
-    ? {
-        username: user.username,
-        imageUrl: user.imageUrl,
-      }
-    : null;
+const LeftBar = ({ user }) => {
+  const menuList = [
+    {
+      id: 1,
+      name: "Homepage",
+      link: "/",
+      icon: "home.svg",
+    },
+    {
+      id: 2,
+      name: "Explore",
+      link: "/",
+      icon: "explore.svg",
+    },
+    {
+      id: 4,
+      name: "Messages",
+      link: "/",
+      icon: "message.svg",
+    },
+    {
+      id: 5,
+      name: "Bookmarks",
+      link: "/",
+      icon: "bookmark.svg",
+    },
+    {
+      id: 6,
+      name: "Jobs",
+      link: "/",
+      icon: "job.svg",
+    },
+    {
+      id: 7,
+      name: "Communities",
+      link: "/",
+      icon: "community.svg",
+    },
+    {
+      id: 8,
+      name: "Premium",
+      link: "/",
+      icon: "logo.svg",
+    },
+    {
+      id: 9,
+      name: "Profile",
+      link: `/${user?.username}`,
+      icon: "profile.svg",
+    },
+    {
+      id: 10,
+      name: "More",
+      link: "/",
+      icon: "more.svg",
+    },
+  ];
 
   return (
     <div className="h-screen sticky top-0 flex flex-col justify-between pt-2 pb-8">
       {/* LOGO MENU BUTTON */}
       <div className="flex flex-col gap-2 text-lg items-center xxl:items-start">
         {/* LOGO */}
-        <Link href="/" className="p-2 rounded-full hover:bg-[#181818] ">
+        <Link href="/" className="p-2 rounded-full hover:bg-[#181818]">
           <Image path="icons/logo.svg" alt="logo" w={24} h={24} />
         </Link>
+
         {/* MENU LIST */}
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2">
           {menuList.map((item, i) => (
             <div key={item.id || i}>
-              {i === 2 && simplifiedUser && (
+              {i === 2 && user && (
                 <div>
                   <Notification />
                 </div>
@@ -105,7 +96,8 @@ const LeftBar = async () => {
             </div>
           ))}
         </div>
-        {/* BUTTON */}
+
+        {/* POST BUTTONS */}
         <Link
           href="/compose/post"
           className="bg-white text-black rounded-full w-12 h-12 flex items-center justify-center xxl:hidden"
@@ -119,35 +111,8 @@ const LeftBar = async () => {
           Post
         </Link>
       </div>
-      {simplifiedUser && (
-        <>
-          <Socket />
-          {/* USER */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 xxl:hidden">
-              <Logout user={simplifiedUser} />
-            </div>
-            <div className="hidden xxl:flex items-center gap-2">
-              <div className="w-10 h-10 relative rounded-full overflow-hidden">
-                <Image
-                  src={simplifiedUser?.imageUrl}
-                  alt=""
-                  w={100}
-                  h={100}
-                  tr={true}
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-bold">{simplifiedUser?.username}</span>
-                <span className="text-sm text-textGray">
-                  @{simplifiedUser?.username}
-                </span>
-              </div>
-              <Logout user={simplifiedUser} />
-            </div>
-          </div>
-        </>
-      )}
+
+      {user && <Logout user={user} />}
     </div>
   );
 };
