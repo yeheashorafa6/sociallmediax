@@ -1,6 +1,5 @@
 import QueryProvider from "@/Providers/QueryProviders";
 import "./globals.css";
-
 import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata = {
@@ -8,16 +7,16 @@ export const metadata = {
   description: "Next.js social media application",
 };
 
-export default function AppLayout({
-  children,
-}) {
+export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
-      <QueryProvider>
-        <html lang="en">
-          <body>{children}</body>
-        </html>
-      </QueryProvider>
-    </ClerkProvider>
+    <html lang="en">
+      <body>
+        <ClerkProvider>
+          <QueryProvider>
+            {children}
+          </QueryProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }

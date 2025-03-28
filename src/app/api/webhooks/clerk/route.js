@@ -56,15 +56,23 @@ export async function POST(req) {
 
   if (eventType === "user.created") {
     try {
+      const userData = evt.data; // استخدم البيانات مباشرة من evt.data
+
+      // تأكد من وجود البيانات الضرورية
+    if (!userData.id || !userData.username) {
+      console.error("Incomplete user data:", userData);
+      return new Response("Error: Incomplete user data", { status: 400 });
+    }
+
       await prisma.user.create({
         data: {
-          id: evt.data.id,
-          username: JSON.parse(body).data.username,
-          email: JSON.parse(body).data.email_addresses[0].email_address,
-          img: JSON.parse(body).image_url || "",
-          displayName: JSON.parse(body).data.first_name && JSON.parse(body).data.last_name 
-          ? `${JSON.parse(body).data.first_name} ${JSON.parse(body).data.last_name}`
-          : JSON.parse(body).data.username,
+          id: userData.id,
+          username: userData.username,
+          email: userData.email_addresses[0]?.email_address || '',
+          img: userData.image_url || "",
+          displayName: userData.first_name && userData.last_name 
+            ? `${userData.first_name} ${userData.last_name}`
+            : userData.username,
         },
       });
       return new Response("User created", { status: 200 });

@@ -18,12 +18,6 @@ const menuList = [
     link: "/",
     icon: "explore.svg",
   },
-  // {
-  //   id: 3,
-  //   name: "Notification",
-  //   link: "/",
-  //   icon: "notification.svg",
-  // },
   {
     id: 4,
     name: "Messages",
@@ -57,8 +51,7 @@ const menuList = [
   {
     id: 9,
     name: "Profile",
-    // link: `/${user.username}`,
-    link: `/`,
+    link: "/profile", // إذا كنت تريد رابطًا ديناميكيًا بناءً على user.username
     icon: "profile.svg",
   },
   {
@@ -68,8 +61,17 @@ const menuList = [
     icon: "more.svg",
   },
 ];
+
 const LeftBar = async () => {
   const user = await currentUser();
+
+  // استخراج البيانات الأساسية فقط
+  const simplifiedUser = user
+    ? {
+        username: user.username,
+        imageUrl: user.imageUrl,
+      }
+    : null;
 
   return (
     <div className="h-screen sticky top-0 flex flex-col justify-between pt-2 pb-8">
@@ -83,7 +85,7 @@ const LeftBar = async () => {
         <div className="flex flex-col gap-1">
           {menuList.map((item, i) => (
             <div key={item.id || i}>
-              {i === 2 && user && (
+              {i === 2 && simplifiedUser && (
                 <div>
                   <Notification />
                 </div>
@@ -117,23 +119,32 @@ const LeftBar = async () => {
           Post
         </Link>
       </div>
-      {user && (
+      {simplifiedUser && (
         <>
           <Socket />
           {/* USER */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 relative rounded-full overflow-hidden">
-                <Image src={user?.imageUrl} alt="" w={100} h={100} tr={true} />
-              </div>
-              <div className="hidden xxl:flex flex-col">
-                <span className="font-bold">{user?.username}</span>
-                <span className="text-sm text-textGray">@{user?.username}</span>
-              </div>
+            <div className="flex items-center gap-2 xxl:hidden">
+              <Logout user={simplifiedUser} />
             </div>
-            {/* <div className="hidden xxl:block cursor-pointer font-bold">...</div> */}
-            {/* ADD LOGOUT */}
-            <Logout />
+            <div className="hidden xxl:flex items-center gap-2">
+              <div className="w-10 h-10 relative rounded-full overflow-hidden">
+                <Image
+                  src={simplifiedUser?.imageUrl}
+                  alt=""
+                  w={100}
+                  h={100}
+                  tr={true}
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-bold">{simplifiedUser?.username}</span>
+                <span className="text-sm text-textGray">
+                  @{simplifiedUser?.username}
+                </span>
+              </div>
+              <Logout user={simplifiedUser} />
+            </div>
           </div>
         </>
       )}
